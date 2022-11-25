@@ -1,12 +1,31 @@
 import './Board.css'
 import { useState } from 'react'
 
+function calculateWinner(squares: string[]): string {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  for (const element of lines) {
+    const [a, b, c] = element;
+    if (squares[a] !== "" && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  return "";
+}
+
 function Board() {
   const [state, setState] = useState({
     squares: Array<string>(9).fill(""),
     xIsNext: true
   })
-  const status = 'Next player: X'
 
   const handleClick = (i: number) => {
     const squares = state.squares.slice()
@@ -24,6 +43,14 @@ function Board() {
         onClick={() => handleClick(i)}
       />
     )
+  }
+
+  const winner = calculateWinner(state.squares);
+  let status;
+  if (winner) {
+    status = 'Winner: ' + winner;
+  } else {
+    status = 'Next player: ' + (state.xIsNext ? 'X' : 'O');
   }
 
   return (
