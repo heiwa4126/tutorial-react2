@@ -10,7 +10,6 @@ function Board(props: BoardProps) {
   const renderSquare = (i: number) => {
     return (
       <Square
-        key={i}
         value={props.squares[i]}
         onClick={() => props.onClick(i)}
       />
@@ -18,22 +17,21 @@ function Board(props: BoardProps) {
   }
 
   const renderRow = (i: number) => {
+    let col = []
+    for (let j = 0; j < 3; ++j) {
+      col.push(renderSquare(i + j))
+    }
     return (
-      <div className="board-row">
-        {renderSquare(i)}
-        {renderSquare(i + 1)}
-        {renderSquare(i + 2)}
-      </div>
+      <div className="board-row">{col}</div >
     )
   }
 
-  return (
-    <div>
-      {renderRow(0)}
-      {renderRow(3)}
-      {renderRow(6)}
-    </div>
-  )
+  let col = []
+  for (let j = 0; j < 3; ++j) {
+    col.push(renderRow(j * 3))
+  }
+
+  return (<div>{col}</div>)
 }
 
 type SquareProps = {
