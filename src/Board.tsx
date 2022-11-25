@@ -2,43 +2,55 @@ import './Board.css'
 import { useState } from 'react'
 
 function Board() {
+  const [state, setState] = useState({ squares: Array<string>(9).fill("") })
   const status = 'Next player: X';
+
+  const handleClick = (i: number) => {
+    const squares = state.squares.slice();
+    squares[i] = 'X';
+    setState({ squares: squares });
+  }
+
+  const renderSquare = (i: number) => {
+    return (
+      <Square
+        value={state.squares[i]}
+        onClick={() => handleClick(i)}
+      />
+    );
+  }
 
   return (
     <div>
       <div className="status">{status}</div>
       <div className="board-row">
-        <Square value="0" />
-        <Square value="1" />
-        <Square value="2" />
+        {renderSquare(0)}
+        {renderSquare(1)}
+        {renderSquare(2)}
       </div>
       <div className="board-row">
-        <Square value="3" />
-        <Square value="4" />
-        <Square value="5" />
+        {renderSquare(3)}
+        {renderSquare(4)}
+        {renderSquare(5)}
       </div>
       <div className="board-row">
-        <Square value="6" />
-        <Square value="7" />
-        <Square value="8" />
+        {renderSquare(6)}
+        {renderSquare(7)}
+        {renderSquare(8)}
       </div>
     </div>
   )
 }
 
 type SquareProps = {
-  value?: string
-}
-const SquareDefault: SquareProps = {
-  value: "0"
+  value: string
+  onClick: () => void
 }
 
-function Square(SquareDefault: SquareProps) {
-  const [state, setState] = useState({ value: "" })
-
+function Square(props: SquareProps) {
   return (
-    <button className="square" onClick={() => setState({ value: 'X' })}>
-      {state.value}
+    <button className="square" onClick={props.onClick}>
+      {props.value}
     </button>
   )
 }
