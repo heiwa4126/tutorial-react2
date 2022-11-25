@@ -2,13 +2,19 @@ import './Board.css'
 import { useState } from 'react'
 
 function Board() {
-  const [state, setState] = useState({ squares: Array<string>(9).fill("") })
-  const status = 'Next player: X';
+  const [state, setState] = useState({
+    squares: Array<string>(9).fill(""),
+    xIsNext: true
+  })
+  const status = 'Next player: X'
 
   const handleClick = (i: number) => {
-    const squares = state.squares.slice();
-    squares[i] = 'X';
-    setState({ squares: squares });
+    const squares = state.squares.slice()
+    squares[i] = state.xIsNext ? 'X' : 'O'
+    setState({
+      squares: squares,
+      xIsNext: !state.xIsNext
+    })
   }
 
   const renderSquare = (i: number) => {
@@ -17,7 +23,7 @@ function Board() {
         value={state.squares[i]}
         onClick={() => handleClick(i)}
       />
-    );
+    )
   }
 
   return (
