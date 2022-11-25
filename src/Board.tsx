@@ -1,4 +1,5 @@
 import './Board.css'
+import { useState } from 'react'
 
 function Board() {
   const status = 'Next player: X';
@@ -28,11 +29,16 @@ function Board() {
 type SquareProps = {
   value?: string
 }
+const SquareDefault: SquareProps = {
+  value: "0"
+}
 
-function Square({ value = "0" }: SquareProps) {
+function Square(SquareDefault: SquareProps) {
+  const [state, setState] = useState({ value: "" })
+
   return (
-    <button className="square">
-      {value}
+    <button className="square" onClick={() => setState({ value: 'X' })}>
+      {state.value}
     </button>
   )
 }
