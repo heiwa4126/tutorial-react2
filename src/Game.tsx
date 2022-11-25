@@ -1,11 +1,11 @@
-import './App.css'
+import './Game.css'
 import Board from './Board'
 
-function App() {
+function Game() {
 
   return (
     <Board />
   )
 }
 
-export default App
+export default Game
