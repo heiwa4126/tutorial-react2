@@ -15,6 +15,10 @@ function Game() {
     xIsNext: true
   })
 
+  // see https://react-typescript-cheatsheet.netlify.app/docs/basic/troubleshooting/types/#using-partial-types
+  const partialStateUpdate = (obj: Partial<typeof state>) =>
+    setState({ ...state, ...obj });
+
   const handleClick = (i: number) => {
     const history = state.history;
     const current = history[history.length - 1];
@@ -43,8 +47,7 @@ function Game() {
   }
 
   const jumpTo = (step: number) => {
-    setState({
-      history: state.history,
+    partialStateUpdate({
       stepNumber: step,
       xIsNext: (step % 2) === 0,
     });

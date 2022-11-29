@@ -1,6 +1,6 @@
 import './Board.css'
 
-type BoardProps = {
+interface BoardProps {
   squares: Array<string>
   onClick: (arg0: number) => void
 }
@@ -34,7 +34,7 @@ function Board(props: BoardProps) {
   return (<div>{col}</div>)
 }
 
-type SquareProps = {
+interface SquareProps {
   value: string
   onClick: () => void
 }
